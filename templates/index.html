@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock title %} {% block
+body %}
+<div class="container my-4">
+    <form action="/" method="POST">
+        <h1>Make your todo hear</h1>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Description</label>
+            <input type="text" class="form-control" name="description" id="desc" />
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+    <table class="table my-3">
+        {% if allquery|length == 0 %}
+        <div class="alert alert-dark my-3" role="alert">
+            No record found please add some
+        </div>
+        {% else %}
+        <thead>
+            <tr>
+                <th scope="col">S.no</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Time</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for query in allquery %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{query.title}}</td>
+                <td>{{query.description}}</td>
+                <td>{{query.date_time}}</td>
+                <td><a href="/update/{{query.sno}}"><button type="button" class="btn btn-dark">Update</button></a></td>
+                <td><a href="/delete/{{query.sno}}"><button type="button" class="btn btn-dark">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}
